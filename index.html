@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>人生のゴール地点 投票</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: "M PLUS Rounded 1c", "Yu Gothic", "ヒラギノ角ゴ Pro W3", sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top left, #ffefaa 0%, #ffe0d4 30%, #ffd1f0 100%);
+      color: #2b2d42;
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 20px 36px;
+    }
+
+    .content-grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    @media (min-width: 980px) {
+      .content-grid {
+        grid-template-columns: 1.05fr 0.95fr;
+        align-items: start;
+      }
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 26px;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: clamp(2.2rem, 3vw, 3.4rem);
+      letter-spacing: 0.02em;
+      color: #4a2d75;
+      text-shadow: 0 12px 24px rgba(255, 255, 255, 0.4);
+    }
+
+    p.lead {
+      margin: 0;
+      color: #5a4c77;
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    form {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 28px;
+      box-shadow: 0 24px 60px rgba(109, 76, 164, 0.12);
+      padding: 28px;
+      margin-bottom: 28px;
+      backdrop-filter: blur(10px);
+    }
+
+    fieldset {
+      border: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    legend {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #6e4f9f;
+      margin-bottom: 18px;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+      padding: 16px 18px;
+      border: 1px solid rgba(120, 96, 198, 0.18);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(239,234,255,0.9));
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .option:hover {
+      border-color: #b58cff;
+      box-shadow: 0 12px 24px rgba(170, 126, 255, 0.18);
+      transform: translateY(-2px);
+      background: linear-gradient(180deg, rgba(255,249,237,0.95), rgba(243,235,255,0.95));
+    }
+
+    .option input {
+      accent-color: #d53fff;
+      width: 18px;
+      height: 18px;
+    }
+
+    .option span {
+      font-size: 1rem;
+      color: #42316a;
+    }
+
+    .vote-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      padding: 16px 24px;
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #ff96c5 0%, #7f71ff 100%);
+      color: white;
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 14px 30px rgba(140, 75, 255, 0.24);
+    }
+
+    .vote-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 38px rgba(140, 75, 255, 0.3);
+    }
+
+    .vote-button:disabled {
+      background: #d4c0ff;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .reset-button {
+      display: block;
+      margin-top: 12px;
+      padding: 12px 20px;
+      border: 1px solid rgba(255, 107, 107, 0.4);
+      border-radius: 999px;
+      background: rgba(255, 160, 122, 0.12);
+      color: #d64545;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: "M PLUS Rounded 1c", "Yu Gothic", "ヒラギノ角ゴ Pro W3", sans-serif;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .reset-button:hover {
+      background: rgba(255, 107, 107, 0.2);
+      border-color: rgba(255, 107, 107, 0.6);
+      color: #c63d3d;
+    }
+
+    .result-card {
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 24px 60px rgba(80, 55, 126, 0.1);
+      padding: 28px;
+    }
+
+    .result-card h2 {
+      margin-top: 0;
+      margin-bottom: 14px;
+      color: #4a2d75;
+    }
+
+    .result-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 14px;
+    }
+
+    .result-item {
+      display: grid;
+      gap: 10px;
+      padding: 18px;
+      border: 1px solid rgba(161, 137, 217, 0.25);
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(247,239,255,0.95), rgba(255,250,252,0.95));
+    }
+
+    .result-item strong {
+      display: block;
+      font-size: 1.02rem;
+      margin-bottom: 4px;
+      color: #3e2d66;
+    }
+
+    .bar {
+      height: 14px;
+      border-radius: 999px;
+      background: #f4efff;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ff94d2 0%, #8c6bff 100%);
+      width: 0%;
+      transition: width 0.6s ease;
+    }
+
+    .meta {
+      color: #6b5c85;
+      font-size: 0.96rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 34px;
+      color: #7a6d92;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>人生のゴール地点 投票</h1>
+      <p class="lead">あなたが人生でいちばん目指したいゴール地点を選んでください。</p>
+    </header>
+
+    <div class="content-grid">
+      <form id="vote-form">
+        <fieldset>
+          <legend>あなたの人生のゴール地点はどれですか？</legend>
+
+          <label class="option">
+            <input type="radio" name="goal" value="family" />
+            <span>家族との幸せな生活</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="goal" value="travel" />
+            <span>世界を旅する自由</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="goal" value="career" />
+            <span>自分の好きな仕事で成功</span>
+          </label>
+
+          <label class="option">
+            <input type="radio" name="goal" value="health" />
+            <span>心身ともに健康で充実した暮らし</span>
+          </label>
+        </fieldset>
+
+        <button type="submit" class="vote-button">投票する</button>
+        <button type="button" class="reset-button" id="reset-btn">投票をリセット</button>
+      </form>
+
+      <section class="result-card">
+        <h2>現在の投票結果</h2>
+        <ul class="result-list" id="results"></ul>
+      </section>
+    </div>
+
+    <footer>
+      <p>投票アプリ（シンプル版）</p>
+    </footer>
+  </div>
+
+  <script>
+    const choices = [
+      { id: "family", label: "家族との幸せな生活", votes: 0 },
+      { id: "travel", label: "世界を旅する自由", votes: 0 },
+      { id: "career", label: "自分の好きな仕事で成功", votes: 0 },
+      { id: "health", label: "心身ともに健康で充実した暮らし", votes: 0 }
+    ];
+
+    const resultsElement = document.getElementById("results");
+    const form = document.getElementById("vote-form");
+    const resetBtn = document.getElementById("reset-btn");
+
+    function renderResults() {
+      const totalVotes = choices.reduce((sum, choice) => sum + choice.votes, 0);
+      resultsElement.innerHTML = "";
+
+      choices.forEach(choice => {
+        const percentage = totalVotes === 0 ? 0 : Math.round((choice.votes / totalVotes) * 100);
+
+        const item = document.createElement("li");
+        item.className = "result-item";
+        item.innerHTML = `
+          <strong>${choice.label}</strong>
+          <div class="bar"><div class="bar-fill" style="width:${percentage}%;"></div></div>
+          <div class="meta">${choice.votes} 票 (${percentage}%)</div>
+        `;
+
+        resultsElement.appendChild(item);
+      });
+    }
+
+    async function loadVotes() {
+      try {
+        const response = await fetch('/votes');
+        if (!response.ok) {
+          throw new Error('投票結果の取得に失敗しました');
+        }
+
+        const votes = await response.json();
+        choices.forEach(choice => {
+          const voteData = votes.find(v => v.option === choice.id);
+          choice.votes = voteData ? voteData.count : 0;
+        });
+
+        renderResults();
+      } catch (error) {
+        console.error(error);
+        resultsElement.innerHTML = '<li class="result-item"><strong>投票結果を読み込めませんでした。</strong></li>';
+      }
+    }
+
+    async function submitVote(option) {
+      const response = await fetch('/vote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ option })
+      });
+
+      if (!response.ok) {
+        throw new Error('投票の送信に失敗しました');
+      }
+    }
+
+    async function resetVotes() {
+      if (!confirm('すべての投票を削除してもよろしいですか？\nこの操作は取り消せません。')) {
+        return;
+      }
+
+      try {
+        const response = await fetch('/votes', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' }
+        });
+
+        if (!response.ok) {
+          throw new Error('リセットに失敗しました');
+        }
+
+        await loadVotes();
+        alert('投票をリセットしました。');
+      } catch (error) {
+        console.error(error);
+        alert('リセット中にエラーが発生しました。');
+      }
+    }
+
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+
+      const selected = form.elements["goal"].value;
+      if (!selected) {
+        alert("まず選択肢を1つ選んでください。");
+        return;
+      }
+
+      try {
+        await submitVote(selected);
+        await loadVotes();
+        form.reset();
+      } catch (error) {
+        console.error(error);
+        alert('投票の送信中にエラーが発生しました。');
+      }
+    });
+
+    resetBtn.addEventListener("click", resetVotes);
+
+    loadVotes();
+  </script>
+</body>
+</html>
