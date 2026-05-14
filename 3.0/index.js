@@ -6,7 +6,7 @@ const app = express();
 const db = new Database(path.join(__dirname, 'votes.db'));
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '..')));
+app.use(express.static(__dirname));
 
 const createTable = db.prepare(`
   CREATE TABLE IF NOT EXISTS votes (
