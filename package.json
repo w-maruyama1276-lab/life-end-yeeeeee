@@ -4,7 +4,7 @@
   "private": true,
   "main": "3.0/index.js",
   "scripts": {
-    "start": "node 3.0/index.js"
+    "start": "node ."
   },
   "engines": {
     "node": "18.x"
