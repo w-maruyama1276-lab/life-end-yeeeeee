@@ -41,7 +41,7 @@ app.delete('/votes', (req, res) => {
   res.json({ success: true, message: 'All votes have been deleted' });
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT ? Number(process.env.PORT) : 3000;
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
