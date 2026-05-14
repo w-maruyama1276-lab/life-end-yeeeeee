@@ -1,0 +1,12 @@
+{
+  "name": "life-end-voting-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node 3.0/index.js"
+  },
+  "engines": {
+    "node": "18.x"
+  },
+  "postinstall": "cd 3.0 && npm install"
+}
