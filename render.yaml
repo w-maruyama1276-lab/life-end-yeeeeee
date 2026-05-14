@@ -2,6 +2,7 @@ services:
   - type: web
     name: life-end-voting-app
     runtime: node
+    runtimeVersion: 22.x
     rootDir: 3.0
     buildCommand: npm install
     startCommand: npm start
